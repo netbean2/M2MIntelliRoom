@@ -1,0 +1,74 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+var Number compteur = 0
+
+rule "People inside"
+	when 
+		Item compteurppl received update
+	then
+		
+		compteur = compteur + 1
+		postUpdate(nbPerso,compteur)
+end
+
+rule "People outside"
+	when 
+		Item compteurppl2 received update
+	then
+		
+		if(compteur>0)
+			compteur = compteur - 1
+		postUpdate(nbPerso,compteur)
+end
+
+rule "init_perso"
+	when
+		System started
+	then
+		postUpdate(nbPerso,compteur)
+end
+
+rule "ALARME DANGER"
+	when
+		Item temperature2 received update
+	then
+		if (temperature2.state>=25 && compteur>0)
+			postUpdate(alarme,ON)
+		else
+			postUpdate(alarme,OFF)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

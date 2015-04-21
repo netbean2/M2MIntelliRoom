@@ -1,0 +1,14 @@
+Group All
+Group gGFa 		(All)
+Group Status2 	(All)
+
+
+/* active groups */
+Group:Number:AVG 				Temperature2	"Avg. Room Temperature [%.1f °C]" 	<temperature>	(Status2)
+
+Number temperature2 "nucleo Temperature [%.1f °C]" <temperature> (Temperature2,All) {mqtt="<[mysensor:temp:state:default]"} 
+Number nbPerso "nombre present : [%d]" (All)
+Number compteurppl " detection mouvement entree [%d]"  {mqtt="<[mysensor:mouvementE:state:default]"} 
+Number compteurppl2 " detection mouvement sortie [%d]"  {mqtt="<[mysensor:mouvementS:state:default]"} 
+
+Switch alarme "alarme" (All) {mqtt=">[mysensor:lumiere:state:ON:alarme]"} 
